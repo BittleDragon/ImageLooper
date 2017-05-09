@@ -405,6 +405,7 @@ public class ImageLooper extends RelativeLayout {
     }
 
     public void removeAllListners() {
+        handler.removeCallbacksAndMessages(null);
         viewPager.removeOnPageChangeListener(pageChangeListner);
     }
 }
