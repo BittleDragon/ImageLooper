@@ -79,8 +79,9 @@ public class ImageLooper extends RelativeLayout {
      *
      * @param delayTime
      */
-    public void setDelayTime(long delayTime) {
+    public ImageLooper setDelayTime(long delayTime) {
         Default_delayTime = delayTime;
+        return this;
     }
 
     /**
@@ -156,20 +157,22 @@ public class ImageLooper extends RelativeLayout {
         this.addView(llIndicators);
     }
 
-    public void setAnimation(ViewPager.PageTransformer pageTransformer) {
+    public ImageLooper setAnimation(ViewPager.PageTransformer pageTransformer) {
         if (viewPager != null)
             viewPager.setPageTransformer(true, pageTransformer);
+        return this;
 
     }
 
     /**
      * 设置轮播滑动时间，默认1s
      */
-    public void setScrollTime(int scrollTime) {
+    public ImageLooper setScrollTime(int scrollTime) {
         if (scroller == null)
             scroller = new ViewPagerScroller(context);
         scroller.setScrollDuration(scrollTime);
         scroller.initViewPagerScroll(viewPager);
+        return this;
     }
 
     @Override
