@@ -3,13 +3,13 @@
 
 ##用法
 
-####步骤1
+#### 步骤1
 引用本地库
 ```groovy
 compile project(':myimagelooper')
 ```
 
-####步骤2
+#### 步骤2
 布局
 ```xml
 <com.gtrsp.myimagelooper.ImageLooper
@@ -19,7 +19,7 @@ compile project(':myimagelooper')
 
 ```
 
-####步骤3
+#### 步骤3
 重写图片加载器,下面是一个使用Picasso加载的例子
 ```java
 public class PicassoImageLoader extends ImageLoader {
@@ -39,8 +39,8 @@ public class PicassoImageLoader extends ImageLoader {
 }
 ```
 
-####步骤4
-#####1.简单使用
+#### 步骤4
+##### 1.简单使用
 ```java
 public class MainActivity extends AppCompatActivity {
 
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     
 
 ```
-#####2.详细设置方法
+##### 2.详细设置方法
 ```java
 1.设置轮播间隔时间
 imagelooper.setDelayTime(long delayTime)
