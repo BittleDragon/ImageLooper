@@ -197,12 +197,14 @@ public class ImageLooper extends RelativeLayout {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        int mode = MeasureSpec.getMode(heightMeasureSpec);
-        if (mode == MeasureSpec.AT_MOST) {
-            //如果布局中高度是wrap_content,那么把控件高度设置为0
-            setMeasuredDimension(widthMeasureSpec, 0);
+//        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        int width = MeasureSpec.getSize(widthMeasureSpec);
+        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+        int height = 0;
+        if (heightMode == MeasureSpec.EXACTLY) {
+            height = MeasureSpec.getSize(heightMeasureSpec);
         }
+        setMeasuredDimension(width, height);
     }
 
     @Override
