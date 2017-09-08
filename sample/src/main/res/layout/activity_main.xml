@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     
-    <com.gtrsp.myimagelooper.ImageLooper
+    <com.customwidget.myimagelooper.ImageLooper
         android:id="@+id/imagelooper"
         android:layout_width="match_parent"
         android:layout_height="160dp"/>

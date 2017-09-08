@@ -4,7 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.widget.ImageView;
 
-import com.gtrsp.myimagelooper.ImageLoader;
+import com.customwidget.myimagelooper.ImageLoader;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;

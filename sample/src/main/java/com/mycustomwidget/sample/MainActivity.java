@@ -3,8 +3,8 @@ package com.mycustomwidget.sample;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.gtrsp.myimagelooper.DepthPageTransformer;
-import com.gtrsp.myimagelooper.ImageLooper;
+import com.customwidget.myimagelooper.DepthPageTransformer;
+import com.customwidget.myimagelooper.ImageLooper;
 
 import java.util.ArrayList;
 import java.util.List;

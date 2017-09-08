@@ -1,4 +1,4 @@
-package com.gtrsp.myimagelooper;
+package com.customwidget.myimagelooper;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -45,7 +45,6 @@ public class ImageLooper extends RelativeLayout {
     private ViewPagerScroller scroller;
     private OnPageClickListener onPageClickListener;
     private boolean looperEnabled = true;
-    private ImageHandler handler;
 
     public void setOnPageClickListener(OnPageClickListener onPageClickListener) {
         this.onPageClickListener = onPageClickListener;
@@ -56,31 +55,34 @@ public class ImageLooper extends RelativeLayout {
         return this;
     }
 
-    private static class ImageHandler extends Handler {
+    private ImageLooperHandler handler;
 
-        private WeakReference<ImageLooper> weakReference;
+    private static class ImageLooperHandler extends Handler{
 
-        public ImageHandler(ImageLooper imageLooper) {
-            weakReference = new WeakReference<>(imageLooper);
+        private WeakReference<ImageLooper> looperReference;
+
+        public ImageLooperHandler(ImageLooper imageLooper) {
+            looperReference = new WeakReference<>(imageLooper);
         }
 
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            ImageLooper imageLooper = weakReference.get();
+            ImageLooper imageLooper = looperReference.get();
             if (imageLooper.originList != null) {
-                imageLooper.currentPosition =
-                        imageLooper.currentPosition % (imageLooper.originList.size() + 1) + 1;
+                imageLooper.currentPosition = imageLooper.currentPosition %
+                        (imageLooper.originList.size() + 1) + 1;
                 if (imageLooper.looperEnabled) {
                     if (imageLooper.currentPosition == 1) {
                         imageLooper.viewPager.setCurrentItem(imageLooper.currentPosition, false);
                         imageLooper.handler.sendEmptyMessage(0);
                     } else {
                         imageLooper.viewPager.setCurrentItem(imageLooper.currentPosition);
-                        this.sendEmptyMessageDelayed(0, imageLooper.Default_delayTime);
+                        imageLooper.handler.sendEmptyMessageDelayed(0, imageLooper.Default_delayTime);
                     }
                 }
             }
+
         }
     }
 
@@ -115,9 +117,7 @@ public class ImageLooper extends RelativeLayout {
     public ImageLooper(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.context = context;
-
-        handler = new ImageHandler(this);
-
+        handler = new ImageLooperHandler(this);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ImageLooper);
         indicator_gravity = a.getInt(R.styleable.ImageLooper_indicator_gravity, 2);
         a.recycle();
@@ -172,11 +172,6 @@ public class ImageLooper extends RelativeLayout {
         this.addView(llIndicators);
     }
 
-    /**
-     * 设置切换动画
-     * @param pageTransformer
-     * @return
-     */
     public ImageLooper setAnimation(ViewPager.PageTransformer pageTransformer) {
         if (viewPager != null)
             viewPager.setPageTransformer(true, pageTransformer);
@@ -197,14 +192,12 @@ public class ImageLooper extends RelativeLayout {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-//        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        int width = MeasureSpec.getSize(widthMeasureSpec);
-        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
-        int height = 0;
-        if (heightMode == MeasureSpec.EXACTLY) {
-            height = MeasureSpec.getSize(heightMeasureSpec);
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        int mode = MeasureSpec.getMode(heightMeasureSpec);
+        if (mode == MeasureSpec.AT_MOST) {
+            //如果布局中高度是wrap_content,那么把控件高度设置为0
+            setMeasuredDimension(widthMeasureSpec, 0);
         }
-        setMeasuredDimension(width, height);
     }
 
     @Override
@@ -263,11 +256,7 @@ public class ImageLooper extends RelativeLayout {
         return imageList;
     }
 
-    /**
-     * 更新数据集合
-     * @param list
-     */
-    public void upDataList(List list) {
+    public void upDateList(List list) {
         stopAutoPlay();
         originList = list;
         currentPosition = 1;
@@ -347,7 +336,7 @@ public class ImageLooper extends RelativeLayout {
         return (int) (dipValue * scale + 0.5f);
     }
 
-    private class MyOnPageChangeListner implements ViewPager.OnPageChangeListener {
+    class MyOnPageChangeListner implements ViewPager.OnPageChangeListener {
 
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -409,15 +398,15 @@ public class ImageLooper extends RelativeLayout {
         }.start();
     }
 
-    private class Myadapter extends PagerAdapter {
+    class Myadapter extends PagerAdapter {
 
         private List<View> imageList;
 
-        Myadapter(List<View> list) {
+        public Myadapter(List<View> list) {
             imageList = list;
         }
 
-        void setImageList(List<View> imageList) {
+        public void setImageList(List<View> imageList) {
             this.imageList = imageList;
         }
 

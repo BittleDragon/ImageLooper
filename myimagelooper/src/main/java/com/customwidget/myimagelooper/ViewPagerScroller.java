@@ -1,4 +1,4 @@
-package com.gtrsp.myimagelooper;
+package com.customwidget.myimagelooper;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;

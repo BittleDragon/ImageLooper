@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gtrsp.myimagelooper;
+package com.customwidget.myimagelooper;
 
 import android.view.View;
 

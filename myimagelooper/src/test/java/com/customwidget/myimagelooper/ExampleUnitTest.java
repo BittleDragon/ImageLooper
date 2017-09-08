@@ -1,4 +1,4 @@
-package com.gtrsp.myimagelooper;
+package com.customwidget.myimagelooper;
 
 import org.junit.Test;
 

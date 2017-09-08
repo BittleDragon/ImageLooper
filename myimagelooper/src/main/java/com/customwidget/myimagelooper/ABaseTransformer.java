@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gtrsp.myimagelooper;
+package com.customwidget.myimagelooper;
 
 import android.support.v4.view.ViewPager.PageTransformer;
 import android.view.View;
