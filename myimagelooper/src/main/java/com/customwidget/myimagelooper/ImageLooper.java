@@ -138,11 +138,9 @@ public class ImageLooper extends RelativeLayout {
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 switch (motionEvent.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        looperEnabled = false;
                         stopAutoPlay();
                         break;
                     case MotionEvent.ACTION_UP:
-                        looperEnabled = true;
                         startAutoPlay();
                         break;
                 }
@@ -288,11 +286,9 @@ public class ImageLooper extends RelativeLayout {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        looperEnabled = false;
                         stopAutoPlay();
                         break;
                     case MotionEvent.ACTION_UP:
-                        looperEnabled = true;
                         startAutoPlay();
                         break;
                 }
@@ -378,24 +374,14 @@ public class ImageLooper extends RelativeLayout {
     }
 
     public void startAutoPlay() {
-        new Thread() {
-            @Override
-            public void run() {
-                super.run();
-                handler.removeCallbacksAndMessages(null);
-                handler.sendEmptyMessageDelayed(0, 3000);
-            }
-        }.start();
+        looperEnabled = true;
+        handler.removeCallbacksAndMessages(null);
+        handler.sendEmptyMessageDelayed(0, 3000);
     }
 
     public void stopAutoPlay() {
-        new Thread() {
-            @Override
-            public void run() {
-                super.run();
-                handler.removeMessages(0);
-            }
-        }.start();
+        looperEnabled = false;
+        handler.removeMessages(0);
     }
 
     class Myadapter extends PagerAdapter {
